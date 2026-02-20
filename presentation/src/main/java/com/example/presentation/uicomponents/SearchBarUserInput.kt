@@ -24,6 +24,7 @@ import com.example.presentation.R
 @Composable
 @Preview(showBackground = true)
 fun SearchBarUserInput(
+    modifier: Modifier = Modifier,
     userText: String = "",
     onValueChange: (String) -> Unit = {},
     onClickPhoto: () -> Unit = {}
@@ -32,6 +33,7 @@ fun SearchBarUserInput(
     var userTextValue by remember { mutableStateOf(userText) }
 
     TextField(
+        modifier = modifier,
         value = userTextValue,
         shape = RoundedCornerShape(16.dp),
         onValueChange = { newtext ->
@@ -58,8 +60,8 @@ fun SearchBarUserInput(
                 Icon(
                     painter = painterResource(R.drawable.vector),
                     contentDescription = null,
-                    tint = Color(0xFFBAC3FB),
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(22.dp),
+                    tint = Color.Unspecified
                 )
             }
         },
