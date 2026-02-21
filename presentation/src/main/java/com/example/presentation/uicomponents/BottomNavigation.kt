@@ -2,6 +2,7 @@ package com.example.presentation.uicomponents
 
 import android.annotation.SuppressLint
 import android.hardware.camera2.params.ColorSpaceTransform
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -71,7 +72,8 @@ fun BottomNaviation(
 
     Row(
         modifier = modifier.fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp)),
+            .clip(RoundedCornerShape(20.dp))
+            .background(Color(0xFFFAFAFA)),
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
         list.forEachIndexed {index, data ->
