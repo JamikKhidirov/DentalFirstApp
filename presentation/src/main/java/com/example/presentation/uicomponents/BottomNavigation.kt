@@ -1,6 +1,7 @@
 package com.example.presentation.uicomponents
 
 import android.annotation.SuppressLint
+import android.hardware.camera2.params.ColorSpaceTransform
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +33,9 @@ import com.example.presentation.uicomponents.data.BottomData
 @Composable
 @Preview(showBackground = true)
 fun BottomNaviation(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedIndex: Int = 0,  // ← Текущий выбранный таб
+    onTabSelect: (Int) -> Unit = {}  // ← Callback при выборе
 ){
 
     val list = remember {
@@ -62,10 +66,17 @@ fun BottomNaviation(
 
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
         list.forEachIndexed {index, data ->
-
+            BottomItem(
+                modifier = Modifier,
+                data = data,
+                isEnable = (index == selectedIndex),
+                onClick = {
+                    onTabSelect(index)
+                }
+            )
         }
     }
 }
@@ -74,17 +85,19 @@ fun BottomNaviation(
 @Composable
 @Preview(showBackground = true)
 fun BottomItem(
+    modifier: Modifier = Modifier,
     data: BottomData =  BottomData(
         text = "Главная",
         icon = R.drawable.home_bottom
     ),
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    isEnable: Boolean = true
 ){
 
     var interaction = remember { MutableInteractionSource() }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = interaction,
                 enabled = true,
@@ -98,12 +111,14 @@ fun BottomItem(
         ) {
             Icon(
                 painter = painterResource(data.icon),
-                contentDescription = null
+                contentDescription = null,
+                tint = if (isEnable) Color(0xFF1634F0) else Color.Unspecified
             )
 
             Text(
                 text = data.text,
-                fontSize = 11.sp
+                fontSize = 11.sp,
+                color = if (isEnable) Color(0xFF1634F0) else Color(0xFF4D4D4D)
             )
         }
     }
