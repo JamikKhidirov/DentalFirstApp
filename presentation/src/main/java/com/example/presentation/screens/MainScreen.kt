@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,14 +23,20 @@ import com.example.presentation.uicomponents.SearchBarUserInput
 @Composable
 @Preview(showBackground = true )
 fun MainScreen(){
+
+
+    var selectedIndex by remember { mutableStateOf(0) }
+
+
     Scaffold(
         bottomBar = {
             BottomNaviation (
+                selectedIndex = selectedIndex,
                 modifier = Modifier.fillMaxWidth()
                     .padding(bottom = 20.dp)
                     .padding(horizontal = 20.dp),
-                onTabSelect = {tabIndex ->
-
+                onTabSelect = { tabIndex ->
+                    selectedIndex = tabIndex
                 }
             )
         }
