@@ -3,6 +3,7 @@ package com.example.presentation.uicomponents
 import android.annotation.SuppressLint
 import android.hardware.camera2.params.ColorSpaceTransform
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -73,12 +74,17 @@ fun BottomNaviation(
     Row(
         modifier = modifier.fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
-            .background(Color(0xFFFAFAFA)),
+            .background(Color(0xFFFAFAFA))
+            .border(
+                width = 1.dp,
+                color = Color(0xFFE6E6E6),
+                shape = RoundedCornerShape(20.dp)
+            ),
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
         list.forEachIndexed {index, data ->
             BottomItem(
-                modifier = Modifier.padding(vertical = 14.dp),
+                modifier = Modifier.padding(vertical = 18.dp),
                 data = data,
                 isEnable = (index == selectedIndex),
                 onClick = {
